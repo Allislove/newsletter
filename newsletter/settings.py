@@ -33,7 +33,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'newsletters.apps.NewslettersConfig',
     'tags.apps.TagsConfig',
-    'usuarios.apps.UsuariosConfig',
+    'users.apps.UsersConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

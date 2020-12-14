@@ -15,9 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-# from rest_framework import routers, serializers, viewsets
 from rest_framework.routers import DefaultRouter
-from usuarios.views import UserViewSet
+from users.views import UserViewSet
 
 router = DefaultRouter()
 router.register(r'users', UserViewSet, basename='user')
@@ -28,6 +27,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    path('', include(r'usuarios.urls')),
+    path('', include(r'users.urls')),
     path('', include(r'newsletters.urls')),
+    path('', include(r'tags.urls'))
 ]

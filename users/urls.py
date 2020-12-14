@@ -1,4 +1,4 @@
-from usuarios import views
+from users import views
 from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()

@@ -4,7 +4,4 @@ from rest_framework import serializers
 class NewsletterSerializer(serializers.ModelSerializer):
     class Meta:
         model = Newsletter
-        fields = ('name', 'description', 'image', 'meta')
-
-
-        
+        fields = '__all__'
