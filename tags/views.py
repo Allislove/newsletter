@@ -6,11 +6,16 @@ from rest_framework.decorators import action
 from newsletters.serializers import NewsletterSerializer
 from newsletters.models import Newsletter
 from  rest_framework.pagination import PageNumberPagination
+from rest_framework.permissions import (
+        AllowAny,
+        IsAuthenticated
+ )
 
 class TagViewSet(viewsets.ModelViewSet):
     queryset = Tag.objects.all()
     serializer_class = TagSerializer
     pagination_class = PageNumberPagination
+    permission_classes = ( IsAuthenticated,)
     
     #Paginación y busqueda
     def get_queryset(self):
