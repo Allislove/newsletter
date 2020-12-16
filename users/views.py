@@ -1,3 +1,4 @@
+#importamos la libreria, serializadores y modelos
 from django.shortcuts import render
 from django.contrib.auth.forms import AuthenticationForm
 from users.serializers import UserSerializer
@@ -11,9 +12,8 @@ from newsletters.serializers import NewsletterSerializer
 from votes.models import Vote
 from  rest_framework.pagination import PageNumberPagination
 
-
+#creamos una clase para generar las vistas
 class UserViewSet(viewsets.ModelViewSet):
-    
     queryset = User.objects.all()
     serializer_class = UserSerializer
     pagination_class = PageNumberPagination
@@ -27,7 +27,8 @@ class UserViewSet(viewsets.ModelViewSet):
             query[item + '__icontains'] = self.request.query_params[item]
         self.queryset = self.queryset.filter(**query)
         return super().get_queryset()    
-    
+
+    #generamos las acciones con los metodos GET,POST Y DELETE
     @action(methods=['GET', 'POST', 'DELETE'], detail=True)
     def newsletters(self, request, pk=None):
         user = self.get_object()

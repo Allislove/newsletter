@@ -1,3 +1,4 @@
+#importamos las vistas y la libreria
 from votes import views
 from rest_framework.routers import DefaultRouter
 

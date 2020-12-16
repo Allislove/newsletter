@@ -13,17 +13,23 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
+"""importamos librerias relacionada a las vistas y urls especificamente"""
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from users.views import UserViewSet
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
 
 
 router = DefaultRouter()
 router.register(r'users', UserViewSet, basename='user')
 urlpatterns = router.urls
 
-
+"""generamos las urls de las aplicaciones que vayamos a manejar"""
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
@@ -31,5 +37,7 @@ urlpatterns = [
     path('', include(r'users.urls')),
     path('', include(r'newsletters.urls')),
     path('', include(r'votes.urls')),
-    path('', include(r'tags.urls'))
+    path('', include(r'tags.urls')),
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]
