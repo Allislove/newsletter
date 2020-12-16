@@ -5,6 +5,7 @@ from datetime import datetime
 
 class Vote(models.Model):
     
+    updatedAt = models.DateTimeField(auto_now=True)
     date = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     newsletter = models.ForeignKey(Newsletter, on_delete=models.CASCADE)
