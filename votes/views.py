@@ -7,9 +7,16 @@ from tags.serializers import TagSerializer
 from tags.models import Tag
 from users.models import User, User, User
 from users.serializers import UserSerializer
+from  rest_framework.pagination import PageNumberPagination
+from rest_framework.permissions import (
+        AllowAny,
+        IsAuthenticated
+ )
 
 # 5. Como usuario quiero poder votar por un boletín para que se haga el lanzamiento de este boletín.
 
 class VotesViewSet(viewsets.ModelViewSet):
     queryset = Vote.objects.all()
     serializer_class = VoteSerializer
+    pagination_class = PageNumberPagination
+    permission_classes = ( IsAuthenticated,)

@@ -8,6 +8,10 @@ from tags.models import Tag
 from users.models import User
 from users.serializers import UserSerializer
 from  rest_framework.pagination import PageNumberPagination
+from rest_framework.permissions import (
+        AllowAny,
+        IsAuthenticated
+ )
 
 #2. Poder ver la listas de boletines creados y ver su categoria#
 
@@ -16,6 +20,7 @@ class NewsViewSet(viewsets.ModelViewSet):
     queryset = Newsletter.objects.all()
     serializer_class = NewsletterSerializer
     pagination_class = PageNumberPagination
+    permission_classes = ( IsAuthenticated,)
     
     #Paginación y busqueda
     def get_queryset(self):

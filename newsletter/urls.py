@@ -17,8 +17,13 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from users.views import UserViewSet
+from rest_framework_swagger.views import get_swagger_view
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
 
-
+schema_view = get_swagger_view(title='Documentation Newsletter API')
 router = DefaultRouter()
 router.register(r'users', UserViewSet, basename='user')
 urlpatterns = router.urls
@@ -31,5 +36,8 @@ urlpatterns = [
     path('', include(r'users.urls')),
     path('', include(r'newsletters.urls')),
     path('', include(r'votes.urls')),
-    path('', include(r'tags.urls'))
+    path('', include(r'tags.urls')),
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('swagger-docs/', schema_view)
 ]

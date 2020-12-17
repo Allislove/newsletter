@@ -10,6 +10,10 @@ from newsletters.models import Newsletter
 from newsletters.serializers import NewsletterSerializer
 from votes.models import Vote
 from  rest_framework.pagination import PageNumberPagination
+from rest_framework.permissions import (
+        AllowAny,
+        IsAuthenticated
+ )
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -17,6 +21,7 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     pagination_class = PageNumberPagination
+    permission_classes = ( IsAuthenticated,)
     
     #Paginación y busqueda
     def get_queryset(self):
