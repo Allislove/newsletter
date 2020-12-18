@@ -21,7 +21,7 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     pagination_class = PageNumberPagination
-    permission_classes = ( IsAuthenticated,)
+    # permission_classes = ( IsAuthenticated,)
     
     #Paginación y busqueda
     def get_queryset(self):
@@ -52,7 +52,8 @@ class UserViewSet(viewsets.ModelViewSet):
     # 7. Como usuario quiero poder darme de baja de los boletines para dejar de recibir noticias.
         if request.method=='DELETE':
             id_user = user.id 
-            newsletters = Newsletter.objects.all()
-            for newsletter in newsletters:
+            newsletters_id = request.data['id']
+            for newsletter_id in newsletters_id:
+                newsletter = Newsletter.objects.get(id=int(newsletter_id))
                 newsletter.users.remove(id_user)
             return Response(status = status.HTTP_204_NO_CONTENT)

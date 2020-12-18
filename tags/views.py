@@ -15,7 +15,7 @@ class TagViewSet(viewsets.ModelViewSet):
     queryset = Tag.objects.all()
     serializer_class = TagSerializer
     pagination_class = PageNumberPagination
-    permission_classes = ( IsAuthenticated,)
+    # permission_classes = ( IsAuthenticated,)
     
     #Paginación y busqueda
     def get_queryset(self):
@@ -49,7 +49,7 @@ class TagViewSet(viewsets.ModelViewSet):
             newsletters_id = request.data['id']
             for newsletter_id in newsletters_id:
                 newsletter = Newsletter.objects.get(id=int(newsletter_id))
-                newsletter.delete()
+                newsletter.tags.remove(tag)
             return Response(status = status.HTTP_204_NO_CONTENT)
 
 
