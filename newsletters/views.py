@@ -20,7 +20,7 @@ class NewsViewSet(viewsets.ModelViewSet):
     queryset = Newsletter.objects.all()
     serializer_class = NewsletterSerializer
     pagination_class = PageNumberPagination
-    permission_classes = ( IsAuthenticated,)
+    # permission_classes = ( IsAuthenticated,)
     
     #Paginación y busqueda
     def get_queryset(self):
@@ -28,10 +28,10 @@ class NewsViewSet(viewsets.ModelViewSet):
         for item in self.request.query_params:
             if item not in ['page_size']:
                 continue
-            if item in ['users', 'tags']:
-                query[item + '__id'] = self.request.query_params[item]
-                continue
-            query[item + '__icontains'] = self.request.query_params[item]
+                if item in ['users', 'tags']:
+                    query[item + '__id'] = self.request.query_params[item]
+                    continue
+                query[item + '__icontains'] = self.request.query_params[item]
         self.queryset = self.queryset.filter(**query)
         return super().get_queryset()
 
@@ -62,13 +62,11 @@ class NewsViewSet(viewsets.ModelViewSet):
     def users(self, request, pk=None):
     #3. Como administrador quiero poder invitar a nuevos administradores para editar los boletines
      if request.method=='POST':
-            newsletters = Newsletter.objects.all() 
+            newsletter = self.get_object()
             users_id = request.data['id']
 
             for user_id in users_id:
                 user = User.objects.get(id=int(user_id))
-
-                for newsletter in newsletters:
-                    newsletter.users.add(user_id)
+                newsletter.users.add(user_id)
 
             return Response(status = status.HTTP_201_CREATED)

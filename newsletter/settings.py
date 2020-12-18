@@ -44,8 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
-    'rest_framework_swagger',
-    'django_slugify_processor'
+    'rest_framework_swagger'
 ]
 
 SWAGGER_SETTINGS = {
@@ -55,10 +54,6 @@ SWAGGER_SETTINGS = {
         }
     },
 }
-
-SLUGIFY_PROCESSORS = [
-   'project.app.slugify_processors.my_processor'
-]
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -70,7 +65,7 @@ REST_FRAMEWORK = {
        'rest_framework.permissions.AllowAny',
     ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 1,
+    'PAGE_SIZE': 2,
     'DEFAULT_SCHEMA_CLASS':'rest_framework.schemas.coreapi.AutoSchema'
 }
 
